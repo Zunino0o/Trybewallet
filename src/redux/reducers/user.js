@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   email: '', // string que armazena o email da pessoa usuária
 };
 
-export const user = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case FIRST_TASK:
     return state;
@@ -13,3 +13,5 @@ export const user = (state = INITIAL_STATE, action) => {
     return state;
   }
 };
+
+export default user;

@@ -1,7 +1,7 @@
 // Coloque aqui suas actions
-export const FIRST_TASK = 'FIRST_TASK';
+export const LOGIN = 'LOGIN';
 
-export const firstTask = (task) => ({
-  type: FIRST_TASK,
-  task,
+export const login = (email) => ({
+  type: LOGIN,
+  payload: email,
 });

@@ -23,6 +23,7 @@ const wallet = (state = INITIAL_STATE, action) => {
       currencies: action.payload,
     };
   case SUBMIT_EXPENSE:
+    console.log(action.payload);
     return {
       ...state,
       isFetching: false,

@@ -7,9 +7,9 @@ class WalletForm extends Component {
   state = {
     id: '',
     value: '',
-    currency: '',
-    method: '',
-    tag: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
     description: '',
     exchangeRates: '',
   };
@@ -28,9 +28,9 @@ class WalletForm extends Component {
     this.setState({
       id: '',
       value: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
       exchangeRates: '',
     });
@@ -101,8 +101,8 @@ class WalletForm extends Component {
             value={ currency }
           >
             {currencies
-              ? currencies.map((data) => (
-                <option key={ data } value={ data }>
+              ? currencies.map((data, ind) => (
+                <option key={ ind } value={ data }>
                   {data}
                 </option>
               ))
@@ -139,9 +139,8 @@ class WalletForm extends Component {
         </label>
         <button
           type="button"
-          data-testid="total-field"
-          onClick={ () => dispatch(this.submitInfos) }
-          // onClick={ this.submitInfos }
+          // onClick={ () => dispatch(this.submitInfos) }
+          onClick={ this.submitInfos }
         >
           Adicionar despesa
         </button>
@@ -158,13 +157,13 @@ const mapStateToProps = (state) => ({
 WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     value: PropTypes.string,
     currency: PropTypes.string,
     method: PropTypes.string,
     tag: PropTypes.string,
     description: PropTypes.string,
-    exchangeRates: PropTypes.shape(PropTypes.shape({
+    exchangeRates: PropTypes.shape({
       code: PropTypes.string,
       codein: PropTypes.string,
       name: PropTypes.string,
@@ -176,7 +175,7 @@ WalletForm.propTypes = {
       ask: PropTypes.string,
       timestamp: PropTypes.string,
       create_date: PropTypes.string,
-    })),
+    }),
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

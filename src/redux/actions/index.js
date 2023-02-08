@@ -3,6 +3,7 @@ export const LOGIN = 'LOGIN';
 export const API_REQUEST = 'API_REQUEST';
 export const REQUEST_SUCCESSFUL = 'REQUEST_SUCCESSFUL';
 export const SUBMIT_EXPENSE = 'SUBMIT_EXPENSE';
+export const DELETE_EXPENSES = 'DELETE_EXPENSES';
 
 export const login = (email) => ({
   type: LOGIN,
@@ -20,5 +21,10 @@ export const requestSuccessful = (stat) => ({
 
 export const submitExpense = (stat) => ({
   type: SUBMIT_EXPENSE,
+  payload: stat,
+});
+
+export const deleteExpense = (stat) => ({
+  type: DELETE_EXPENSES,
   payload: stat,
 });

@@ -1,5 +1,10 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { API_REQUEST, REQUEST_SUCCESSFUL, SUBMIT_EXPENSE } from '../actions';
+import {
+  API_REQUEST,
+  REQUEST_SUCCESSFUL,
+  SUBMIT_EXPENSE,
+  DELETE_EXPENSES,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -23,11 +28,16 @@ const wallet = (state = INITIAL_STATE, action) => {
       currencies: action.payload,
     };
   case SUBMIT_EXPENSE:
-    console.log(action.payload);
+    // console.log(action.payload);
     return {
       ...state,
       isFetching: false,
       expenses: [...state.expenses, action.payload],
+    };
+  case DELETE_EXPENSES:
+    return {
+      ...state,
+      expenses: [...action.payload],
     };
   default:
     return state;

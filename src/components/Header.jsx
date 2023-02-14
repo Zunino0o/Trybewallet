@@ -14,7 +14,7 @@ class Header extends Component {
         // console.log(value, currency, exchangeRates, typeof (ask), typeof (prev), typeof (resp), num1, typeof (num2));
         return prev + parseFloat(resp.toFixed(2));
       }, 0.00);
-      return finalNum;
+      return finalNum.toFixed(2);
     }
 
     return 0.00;

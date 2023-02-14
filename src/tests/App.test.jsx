@@ -12,6 +12,7 @@ const VALUE_INPUT = 'value-input';
 const DESCRIPTION_INPUT = 'description-input';
 const VALID_EMAIL = 'zuzu@zuzu.com';
 const VALID_PASS = '123456';
+const ADD_VALUE = 'Adicionar despesa';
 
 describe('TESTES REQUISITO 5', () => {
   test('testes Login', () => {
@@ -25,36 +26,55 @@ describe('TESTES REQUISITO 5', () => {
   });
 
   test('testes Wallet', async () => {
-    renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'] });
+    const { history } = renderWithRouterAndRedux(<App />);
+
+    userEvent.type(screen.getByTestId(EMAIL_INPUT), VALID_EMAIL);
+    userEvent.type(screen.getByTestId(PASS_INPUT), VALID_PASS);
+    userEvent.click(screen.getByRole('button', { name: 'Entrar' }));
+
+    expect(history.location.pathname).toBe('/carteira');
 
     expect(screen.getByTestId(TOTAL_FIELD).innerHTML).toBe('0.00');
     expect(screen.getByRole('heading', { name: 'BRL' })).toBeInTheDocument();
 
-    userEvent.type(screen.getByTestId(VALUE_INPUT), '420');
+    userEvent.type(screen.getByTestId(VALUE_INPUT), '421');
     userEvent.type(screen.getByTestId(DESCRIPTION_INPUT), 'Guitarra');
-    userEvent.click(screen.getByRole('button', { name: 'Adicionar despesa' }));
+    userEvent.click(screen.getByRole('button', { name: ADD_VALUE }));
 
     await waitFor(() => expect(screen.getByTestId(TOTAL_FIELD).innerHTML)
-      .toEqual('2188.66'), { timeout: 6000 });
+      .toEqual('2193.07'), { timeout: 4000 });
 
     userEvent.type(screen.getByTestId(VALUE_INPUT), '69');
     userEvent.type(screen.getByTestId(DESCRIPTION_INPUT), 'Pedal');
-    userEvent.click(screen.getByRole('button', { name: 'Adicionar despesa' }));
+    userEvent.click(screen.getByRole('button', { name: ADD_VALUE }));
 
     await waitFor(() => expect(screen.getByTestId(TOTAL_FIELD).innerHTML)
-      .toEqual('2548.23'), { timeout: 6000 });
+      .toEqual('2324.26'), { timeout: 4000 });
 
-    userEvent.click(screen.getAllByTestId('delete-btn')[1]);
+    const deleteBtns = screen.getAllByTestId('delete-btn');
+    console.log(deleteBtns);
+    userEvent.click(deleteBtns[1]);
 
     await waitFor(() => expect(screen.getByTestId(TOTAL_FIELD).innerHTML)
-      .toEqual('2188.66'), { timeout: 6000 });
+      .toEqual('2193.07'), { timeout: 4000 });
   });
 
-  test('testes Header', () => {
+  test('testes Table', async () => {
     renderWithRouterAndRedux(<App />);
 
     userEvent.type(screen.getByTestId(EMAIL_INPUT), VALID_EMAIL);
     userEvent.type(screen.getByTestId(PASS_INPUT), VALID_PASS);
     userEvent.click(screen.getByRole('button', { name: 'Entrar' }));
+
+    userEvent.type(screen.getByTestId(VALUE_INPUT), '421');
+    userEvent.click(screen.getByRole('button', { name: ADD_VALUE }));
+
+    const deleteBtn = await screen.findByTestId('delete-btn');
+
+    expect(deleteBtn).toBeInTheDocument();
+
+    userEvent.click(deleteBtn);
+
+    expect(deleteBtn).not.toBeInTheDocument();
   });
 });

@@ -11,7 +11,7 @@ class Header extends Component {
         const num1 = parseFloat(value);
         const num2 = parseFloat(ask);
         const resp = num1 * num2;
-        console.log(value, currency, typeof (prev), prev, typeof (resp), resp, typeof (num1), num1, typeof (num2), num2, typeof (resp), resp);
+        // console.log(value, currency, typeof (prev), prev, typeof (resp), resp, typeof (num1), num1, typeof (num2), num2, typeof (resp), resp);
         return prev + parseFloat(resp.toFixed(2));
       }, 0.00);
       console.log(typeof (finalNum), finalNum);
